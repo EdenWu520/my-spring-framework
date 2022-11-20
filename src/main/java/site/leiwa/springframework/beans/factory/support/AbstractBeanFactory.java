@@ -1,8 +1,8 @@
-package site.leiwa.springframework.beans.support;
+package site.leiwa.springframework.beans.factory.support;
 
-import site.leiwa.springframework.beans.config.BeanDefinition;
-import site.leiwa.springframework.BeansException;
-import site.leiwa.springframework.beans.BeanFactory;
+import site.leiwa.springframework.beans.factory.config.BeanDefinition;
+import site.leiwa.springframework.beans.BeansException;
+import site.leiwa.springframework.beans.factory.BeanFactory;
 
 /**
  * @author <a href="mailto:gcwulei@gmail.com">Lei Wu</a>

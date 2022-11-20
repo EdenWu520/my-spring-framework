@@ -1,9 +1,9 @@
-package site.leiwa.springframework.beans.support;
+package site.leiwa.springframework.beans.factory.support;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
-import site.leiwa.springframework.BeansException;
-import site.leiwa.springframework.beans.config.BeanDefinition;
+import site.leiwa.springframework.beans.BeansException;
+import site.leiwa.springframework.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 

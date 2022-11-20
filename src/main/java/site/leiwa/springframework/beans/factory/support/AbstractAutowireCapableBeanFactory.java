@@ -1,11 +1,11 @@
-package site.leiwa.springframework.beans.support;
+package site.leiwa.springframework.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
-import site.leiwa.springframework.BeansException;
+import site.leiwa.springframework.beans.BeansException;
 import site.leiwa.springframework.beans.PropertyValue;
 import site.leiwa.springframework.beans.PropertyValues;
-import site.leiwa.springframework.beans.config.BeanDefinition;
-import site.leiwa.springframework.beans.config.BeanReference;
+import site.leiwa.springframework.beans.factory.config.BeanDefinition;
+import site.leiwa.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 

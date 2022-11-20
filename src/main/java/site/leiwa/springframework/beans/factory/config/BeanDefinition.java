@@ -1,4 +1,4 @@
-package site.leiwa.springframework.beans.config;
+package site.leiwa.springframework.beans.factory.config;
 
 import site.leiwa.springframework.beans.PropertyValues;
 

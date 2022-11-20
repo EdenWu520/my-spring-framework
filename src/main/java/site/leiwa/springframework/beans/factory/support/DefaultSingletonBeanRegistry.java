@@ -1,6 +1,6 @@
-package site.leiwa.springframework.beans.support;
+package site.leiwa.springframework.beans.factory.support;
 
-import site.leiwa.springframework.beans.config.SingletonBeanRegistry;
+import site.leiwa.springframework.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

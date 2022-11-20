@@ -1,4 +1,4 @@
-package site.leiwa.springframework;
+package site.leiwa.springframework.beans;
 
 /**
  * @author <a href="mailto:gcwulei@gmail.com">Lei Wu</a>
