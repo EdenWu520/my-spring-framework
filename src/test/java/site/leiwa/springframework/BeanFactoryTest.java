@@ -5,8 +5,12 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import site.leiwa.springframework.bean.UserDao;
 import site.leiwa.springframework.bean.UserService;
+import site.leiwa.springframework.beans.PropertyValue;
+import site.leiwa.springframework.beans.PropertyValues;
 import site.leiwa.springframework.beans.config.BeanDefinition;
+import site.leiwa.springframework.beans.config.BeanReference;
 import site.leiwa.springframework.beans.support.DefaultListableBeanFactory;
 
 import java.lang.reflect.Constructor;
@@ -19,21 +23,22 @@ class BeanFactoryTest {
         // 1. 初始化BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
-        // 2. 注入Bean
-        BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
+        // 2. UserDao 注册
+        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
+
+        // 3. UserService 设置属性[id、userDao]
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("id", "10002"));
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference("userDao")));
+
+        // 4. UserService 注入 bean
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
         beanFactory.registerBeanDefinition("userService", beanDefinition);
 
-        // 3. 获取使用Bean
+        // 5. UserService 获取使用Bean
         UserService userService = (UserService) beanFactory.getBean("userService");
-        Assertions.assertEquals(userService.queryUser(), "Eden");
-
-        // 2. 有参注入Bean
-        beanDefinition = new BeanDefinition(UserService.class);
-        beanFactory.registerBeanDefinition("userService1", beanDefinition);
-
-        // 5. 校验两个对象时候是同一个
-        userService = (UserService) beanFactory.getBean("userService1", "张三");
         Assertions.assertEquals(userService.queryUser(), "张三");
+
     }
 
     @Test

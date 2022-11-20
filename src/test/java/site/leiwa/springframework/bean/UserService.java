@@ -7,19 +7,30 @@ package site.leiwa.springframework.bean;
  */
 public class UserService {
 
-    private String name;
+    private String id;
 
-    public UserService() {
-    }
-
-    public UserService(String name) {
-        this.name = name;
-    }
+    private UserDao userDao;
 
     public String queryUser() {
-        if (name != null) {
-            return name;
+        if (id != null) {
+            return userDao.queryUserName(id);
         }
         return "Eden";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }
