@@ -6,7 +6,20 @@ package site.leiwa.springframework.bean;
  * @since 2022/11/19
  */
 public class UserService {
+
+    private String name;
+
+    public UserService() {
+    }
+
+    public UserService(String name) {
+        this.name = name;
+    }
+
     public String queryUser() {
-        return "用户信息";
+        if (name != null) {
+            return name;
+        }
+        return "Eden";
     }
 }
