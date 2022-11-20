@@ -9,4 +9,9 @@ import site.leiwa.springframework.beans.factory.BeanFactory;
  * @since 2022/11/20
  */
 public interface ConfigurableBeanFactory extends BeanFactory {
+    String SCOPE_SINGLETON = "singleton";
+
+    String SCOPE_PROTOTYPE = "prototype";
+
+    void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
 }

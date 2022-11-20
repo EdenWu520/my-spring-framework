@@ -10,4 +10,7 @@
         <property name="userDao" ref="userDao"/>
     </bean>
 
+    <bean class="site.leiwa.springframework.common.MyBeanFactoryPostProcessor"/>
+    <bean class="site.leiwa.springframework.common.MyBeanPostProcessor"/>
+
 </beans>
