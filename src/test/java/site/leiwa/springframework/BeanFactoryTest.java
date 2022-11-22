@@ -42,7 +42,7 @@ class BeanFactoryTest {
         beanFactory.registerBeanDefinition("userService", beanDefinition);
 
         // 5. UserService 获取使用Bean
-        UserService userService = (UserService) beanFactory.getBean("userService");
+        UserService userService = (UserService)beanFactory.getBean("userService");
         Assertions.assertEquals(userService.queryUser(), "张三");
 
     }
@@ -57,7 +57,7 @@ class BeanFactoryTest {
                 return super.hashCode();
             }
         });
-        Object obj = enhancer.create(new Class[]{String.class}, new Object[]{"张三"});
+        Object obj = enhancer.create(new Class[] {String.class}, new Object[] {"张三"});
         System.out.println(obj);
     }
 
@@ -68,7 +68,8 @@ class BeanFactoryTest {
     }
 
     @Test
-    public void test_constructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void test_constructor()
+        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<UserService> userServiceClass = UserService.class;
         Constructor<UserService> declaredConstructor = userServiceClass.getDeclaredConstructor(String.class);
         UserService userService = declaredConstructor.newInstance("张三");
@@ -80,7 +81,8 @@ class BeanFactoryTest {
         Class<UserService> beanClass = UserService.class;
         Constructor<?>[] declaredConstructors = beanClass.getDeclaredConstructors();
         Constructor<?> constructor = declaredConstructors[0];
-        Constructor<UserService> declaredConstructor = beanClass.getDeclaredConstructor(constructor.getParameterTypes());
+        Constructor<UserService> declaredConstructor =
+            beanClass.getDeclaredConstructor(constructor.getParameterTypes());
         UserService userService = declaredConstructor.newInstance("张三");
         System.out.println(userService);
     }
@@ -100,8 +102,8 @@ class BeanFactoryTest {
         Assertions.assertEquals(result, "Eden");
     }
 
-
     private DefaultResourceLoader resourceLoader;
+
     @BeforeEach
     public void init() {
         resourceLoader = new DefaultResourceLoader();
@@ -125,7 +127,8 @@ class BeanFactoryTest {
 
     @Test
     public void test_url() throws IOException {
-        Resource resource = resourceLoader.getResource("https://github.com/fuzhengwei/small-spring/blob/main/important.properties");
+        Resource resource =
+            resourceLoader.getResource("https://github.com/fuzhengwei/small-spring/blob/main/important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.readUtf8(inputStream);
         System.out.println(content);

@@ -5,6 +5,7 @@ import site.leiwa.springframework.beans.BeansException;
 import site.leiwa.springframework.beans.factory.BeanFactory;
 import site.leiwa.springframework.beans.factory.config.BeanPostProcessor;
 import site.leiwa.springframework.beans.factory.config.ConfigurableBeanFactory;
+import site.leiwa.springframework.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ import java.util.List;
 // 全称是模板方法设计模式。模板模式主要是用来解决复用和扩展两个问题
 // https://time.geekbang.org/column/article/212049
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+    /** ClassLoader to resolve bean class names with, if necessary */
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
+
     /** BeanPostProcessors to apply in createBean */
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
     @Override
@@ -54,5 +58,9 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
     }
 }

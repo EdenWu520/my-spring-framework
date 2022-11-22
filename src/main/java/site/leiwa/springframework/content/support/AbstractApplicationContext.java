@@ -4,6 +4,7 @@ import site.leiwa.springframework.beans.BeansException;
 import site.leiwa.springframework.beans.factory.ConfigurableListableBeanFactory;
 import site.leiwa.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import site.leiwa.springframework.beans.factory.config.BeanPostProcessor;
+import site.leiwa.springframework.content.ApplicationContextAwareProcessor;
 import site.leiwa.springframework.content.ConfigurableApplicationContext;
 import site.leiwa.springframework.core.io.DefaultResourceLoader;
 
@@ -24,6 +25,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
         // 2. 获取 BeanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+
+        // 2.1 添加ApplicationContextAwareProcessor类， 让继承自ApplicationContextAware
+        // 接口的Bean对象都能感知所属的ApplicationContext
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
         // 3. 在 Bean 实例化之前，执行 BeanFactoryPostProcessor (Invoke factory processors registered as beans in the context.)
         invokeBeanFactoryPostProcessors(beanFactory);
