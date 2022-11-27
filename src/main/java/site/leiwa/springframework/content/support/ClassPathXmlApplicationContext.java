@@ -10,8 +10,7 @@ import site.leiwa.springframework.beans.BeansException;
 public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
     private String[] configLocations;
 
-    public ClassPathXmlApplicationContext() {
-    }
+    public ClassPathXmlApplicationContext() {}
 
     /**
      * 从 XML 中加载 BeanDefinition，并刷新上下文

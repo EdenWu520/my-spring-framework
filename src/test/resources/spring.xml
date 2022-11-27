@@ -9,4 +9,10 @@
 
     <bean id="proxyUserDao" class="site.leiwa.springframework.bean.ProxyBeanFactory"/>
 
+    <bean class="site.leiwa.springframework.event.ContextRefreshedEventListener"/>
+
+    <bean class="site.leiwa.springframework.event.CustomEventListener"/>
+
+    <bean class="site.leiwa.springframework.event.ContextClosedEventListener"/>
+
 </beans>

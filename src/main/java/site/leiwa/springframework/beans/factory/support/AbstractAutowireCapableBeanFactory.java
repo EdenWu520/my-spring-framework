@@ -1,5 +1,10 @@
 package site.leiwa.springframework.beans.factory.support;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import site.leiwa.springframework.beans.BeansException;
@@ -16,11 +21,6 @@ import site.leiwa.springframework.beans.factory.config.BeanDefinition;
 import site.leiwa.springframework.beans.factory.config.BeanPostProcessor;
 import site.leiwa.springframework.beans.factory.config.BeanReference;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author <a href="mailto:gcwulei@gmail.com">Lei Wu</a>
  * @desc: 实现默认bean创建的抽象bean工厂超类
@@ -28,7 +28,6 @@ import java.util.Map;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory
     implements AutowireCapableBeanFactory {
-    // todo 这里所说的策略模式，不是很清楚为什么这里直接写死了
     private final InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
 
     private final Map<String, DisposableBean> disposableBeans = new HashMap<>();
@@ -123,9 +122,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         if (StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)) {
             Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
             if (initMethod == null) {
-                throw new BeansException(
-                    "Could not find an init method named '" + initMethodName + "' on bean with name '" + beanName +
-                        "'");
+                throw new BeansException("Could not find an init method named '" + initMethodName
+                    + "' on bean with name '" + beanName + "'");
             }
             initMethod.invoke(bean);
         }
