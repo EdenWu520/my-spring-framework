@@ -1,8 +1,8 @@
 package site.leiwa.springframework.beans.factory.support;
 
-import site.leiwa.springframework.beans.factory.config.BeanDefinition;
 import site.leiwa.springframework.beans.BeansException;
-import site.leiwa.springframework.beans.factory.BeanFactory;
+import site.leiwa.springframework.beans.factory.FactoryBean;
+import site.leiwa.springframework.beans.factory.config.BeanDefinition;
 import site.leiwa.springframework.beans.factory.config.BeanPostProcessor;
 import site.leiwa.springframework.beans.factory.config.ConfigurableBeanFactory;
 import site.leiwa.springframework.utils.ClassUtils;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 // 全称是模板方法设计模式。模板模式主要是用来解决复用和扩展两个问题
 // https://time.geekbang.org/column/article/212049
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
     /** ClassLoader to resolve bean class names with, if necessary */
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
@@ -33,13 +33,35 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return doGetBean(name, args);
     }
 
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T) getBean(name);
+    }
+
     private <T> T doGetBean(final String name, final Object[] args) {
-        T bean = (T)getSingleton(name);
-        if (bean != null) {
-            return bean;
+        Object sharedInstance = getSingleton(name);
+        if (sharedInstance != null) {
+            // 如果是 FactoryBean，则需要调用 FactoryBean#getObject
+            return (T) getObjectForBeanInstance(sharedInstance, name);
         }
+
         BeanDefinition beanDefinition = getBeanDefinition(name);
-        return (T)createBean(name, beanDefinition, args);
+        Object bean = createBean(name, beanDefinition, args);
+        return (T) getObjectForBeanInstance(bean, name);
+    }
+
+
+    private Object getObjectForBeanInstance(Object beanInstance, String beanName) {
+        if (!(beanInstance instanceof FactoryBean)) {
+            return beanInstance;
+        }
+
+        Object object = getCachedObjectForFactoryBean(beanName);
+        if (object == null) {
+            FactoryBean<?> factoryBean = (FactoryBean<?>) beanInstance;
+            object = getObjectFromFactoryBean(factoryBean, beanName);
+        }
+        return object;
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName);

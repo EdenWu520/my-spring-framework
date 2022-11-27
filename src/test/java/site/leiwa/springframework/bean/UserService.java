@@ -26,7 +26,7 @@ public class UserService
     private String id;
     private String company;
     private String location;
-    private UserDao userDao;
+    private IUserDao userDao;
 
     public String queryUser() {
         if (id != null) {
