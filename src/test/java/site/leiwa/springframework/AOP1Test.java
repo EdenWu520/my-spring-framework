@@ -24,7 +24,7 @@ import site.leiwa.springframework.bean.UserServiceImplInterceptor;
  * @author <a href="mailto:gcwulei@gmail.com">Lei Wu</a>
  * @since 2022/11/28
  */
-public class AOPTest {
+public class AOP1Test {
 
     @Test
     public void test_proxy_method() {
