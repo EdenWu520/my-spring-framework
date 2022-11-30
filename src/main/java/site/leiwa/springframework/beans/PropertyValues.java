@@ -15,8 +15,8 @@ public class PropertyValues {
         this.propertyValueList.add(pv);
     }
 
-    public List<PropertyValue> getPropertyValues() {
-        return propertyValueList;
+    public PropertyValue[] getPropertyValues() {
+        return this.propertyValueList.toArray(new PropertyValue[0]);
     }
 
     public PropertyValue getPropertyValue(String name) {
