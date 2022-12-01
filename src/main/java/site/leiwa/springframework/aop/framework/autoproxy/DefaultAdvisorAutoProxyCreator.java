@@ -13,6 +13,7 @@ import site.leiwa.springframework.aop.TargetSource;
 import site.leiwa.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import site.leiwa.springframework.aop.framework.ProxyFactory;
 import site.leiwa.springframework.beans.BeansException;
+import site.leiwa.springframework.beans.PropertyValues;
 import site.leiwa.springframework.beans.factory.BeanFactory;
 import site.leiwa.springframework.beans.factory.BeanFactoryAware;
 import site.leiwa.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -60,6 +61,12 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             return new ProxyFactory(advisedSupport).getProxy();
         }
         return null;
+    }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName)
+        throws BeansException {
+        return pvs;
     }
 
     @Override

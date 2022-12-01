@@ -2,6 +2,8 @@ package site.leiwa.springframework.bean;
 
 import java.util.Random;
 
+import site.leiwa.springframework.beans.factory.annotation.Autowired;
+import site.leiwa.springframework.beans.factory.annotation.Value;
 import site.leiwa.springframework.stereotype.Component;
 
 /**
@@ -13,7 +15,11 @@ import site.leiwa.springframework.stereotype.Component;
 @Component("userService")
 public class UserServiceImpl implements IUserService {
 
+    @Value("${token}")
     private String token;
+
+    @Autowired
+    private UserDao userDao;
 
     public String queryUserInfo() {
         try {
